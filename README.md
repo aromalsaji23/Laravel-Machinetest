@@ -1,48 +1,5 @@
 # Laravel AI Task Management System
 
-A production-ready, senior-level task management application built with Laravel 12+, strictly following clean architecture principles, Repository Pattern, Service Layer, and featuring AI integration for task summaries and priority inference.
-
-## Features
-
-- **Clean Architecture:** Strict separation of concerns (Repositories, Services, Form Requests, Policies, Resources).
-- **Role-Based Access Control (RBAC):** Admin (full control, dashboard access) and User (only manage assigned tasks).
-- **AI Integration (OpenAI/Gemini):** Automatically generates task summaries and suggests priorities based on task parameters. Gracefully falls back to a mock system if API keys are missing.
-- **REST APIs:** Full API support using API Resources with proper status codes.
-- **Modern UI:** Responsive, custom Tailwind CSS implementation tailored for a sleek admin dashboard feel.
-- **Analytics:** Chart.js integration for dashboard metrics.
-
----
-
-## Tech Stack
-
-- **Framework:** Laravel 12.x / PHP 8.2+
-- **Database:** MySQL
-- **Templating:** Blade + Tailwind CSS v3
-- **Authentication:** Laravel Breeze
-- **AI Integration:** OpenAI PHP Client (`openai-php/client`)
-- **Charts:** Chart.js
-
----
-
-## Architecture Overview
-
-This application structure avoids "Fat Controllers" by enforcing strict boundaries:
-
-1.  **Controllers:** Thin coordinators. They receive the Request, authorize via `TaskPolicy`, validate via Form Requests (`StoreTaskRequest`, etc.), pass data to the Service Layer, and return a view or API response. No direct Eloquent calls live here.
-2.  **Service Layer (`TaskService` / `AIService`):** Encapsulates business logic. `TaskService` wraps operations in database transactions and coordinates with the Repository and `AIService`.
-3.  **Repository Pattern (`TaskRepositoryInterface` -> `TaskRepository`):** Handles all database access and complex Eloquent queries (using local scopes mapped from the `Task` model). Paginations and eager-loading live here.
-4.  **Enums (`TaskStatusEnum`, `TaskPriorityEnum`, `UserRoleEnum`):** Type-safe value handling with helper methods for UI badges.
-5.  **Policies (`TaskPolicy`, `AdminMiddleware`):** Enforce strict role validation.
-
----
-
-## System Requirements
-
-- PHP = 8.2
-- Composer
-- Node.js & npm
-- MySQL
-
 ## Setup & Installation
 
 1.  **Clone the repository / Navigate to folder**
